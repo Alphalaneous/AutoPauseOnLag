@@ -1,0 +1,38 @@
+{
+	"geode": "4.9.0",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
+	},
+	"id": "alphalaneous.auto_pause_on_lag",
+	"name": "Auto Pause on Lag",
+	"version": "v1.0.0",
+	"developer": "Alphalaneous",
+	"description": "Pauses the game if you lag",
+	"dependencies": {
+		"geode.node-ids": ">=v1.20.0"
+	},
+	"settings": {
+		"enabled": {
+			"type": "bool",
+			"name": "Enabled",
+			"default": true
+		},
+		"threshold": {
+			"type": "float",
+			"name": "Threshold (ms)",
+			"description": "How many milliseconds should the freeze be to pause?",
+			"default": 200
+		}
+	},
+	"links": {
+		"homepage": "https://linktr.ee/Alphalaneous",
+		"source": "https://github.com/Alphalaneous/AutoPauseOnLag",
+		"community": "https://discord.gg/Txn2CA5dHF"
+	},
+	"tags": [
+		"enhancement", "gameplay"
+	]
+}
