@@ -8,7 +8,7 @@
 	},
 	"id": "alphalaneous.auto_pause_on_lag",
 	"name": "Auto Pause on Lag",
-	"version": "v1.0.0",
+	"version": "v1.0.1",
 	"developer": "Alphalaneous",
 	"description": "Pauses the game if you lag",
 	"dependencies": {
@@ -18,6 +18,12 @@
 		"enabled": {
 			"type": "bool",
 			"name": "Enabled",
+			"default": true
+		},
+		"show-notification": {
+			"type": "bool",
+			"name": "Show Notification",
+			"description": "Show the notification stating how long a lag spike was.",
 			"default": true
 		},
 		"threshold": {

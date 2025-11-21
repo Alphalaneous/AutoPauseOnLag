@@ -15,9 +15,13 @@ struct LagChecker : public CCObject {
 
 	bool init() {
 		m_enabled = Mod::get()->getSettingValue<bool>("enabled");
+		m_showNotification = Mod::get()->getSettingValue<bool>("show-notification");
 		m_threshold = Mod::get()->getSettingValue<float>("threshold");
 		listenForSettingChanges("enabled", [&](bool setting) {
 			m_enabled = setting;
+		});
+		listenForSettingChanges("show-notification", [&](bool setting) {
+			m_showNotification = setting;
 		});
 		listenForSettingChanges("threshold", [&](float setting) {
 			m_threshold = setting;
@@ -36,7 +40,7 @@ struct LagChecker : public CCObject {
 			const float time = CCDirector::get()->m_fAccumDt * 1000.f;
 			const bool isGrace = time < (m_lastPauseTime + GRACE_PERIOD);
 
-			if (ms >= m_threshold && !isGrace && playLayer->m_timePlayed != 0 && !playLayer->m_isPaused) {
+			if (ms >= m_threshold && !isGrace && playLayer->m_timePlayed != 0 && !playLayer->m_isPaused && !playLayer->m_playerDied && !playLayer->m_hasCompletedLevel) {
 				m_lastPauseTime = time;
 				for (auto [k, v] : FMODAudioEngine::get()->m_channelIDToChannel) {
 					unsigned int pos = 0;
@@ -44,12 +48,15 @@ struct LagChecker : public CCObject {
 					v->setPosition(pos - ms, FMOD_TIMEUNIT_MS);
 				}
 				playLayer->pauseGame(true);
-				geode::Notification::create(fmt::format("Lag spike of {}ms detected.", ms))->show();
+				if (m_showNotification) {
+					geode::Notification::create(fmt::format("Lag spike of {}ms detected.", ms))->show();
+				}
 			}
 		}
 	}
 
 	bool m_enabled;
+	bool m_showNotification;
 	float m_threshold;
 	float m_lastPauseTime = 0.f;
 };
