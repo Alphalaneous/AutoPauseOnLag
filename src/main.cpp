@@ -17,13 +17,13 @@ struct LagChecker : public CCObject {
 		m_enabled = Mod::get()->getSettingValue<bool>("enabled");
 		m_showNotification = Mod::get()->getSettingValue<bool>("show-notification");
 		m_threshold = Mod::get()->getSettingValue<float>("threshold");
-		listenForSettingChanges("enabled", [&](bool setting) {
+		listenForSettingChanges<bool>("enabled", [&](bool setting) {
 			m_enabled = setting;
 		});
-		listenForSettingChanges("show-notification", [&](bool setting) {
+		listenForSettingChanges<bool>("show-notification", [&](bool setting) {
 			m_showNotification = setting;
 		});
-		listenForSettingChanges("threshold", [&](float setting) {
+		listenForSettingChanges<float>("threshold", [&](float setting) {
 			m_threshold = setting;
 		});
 		return true;
